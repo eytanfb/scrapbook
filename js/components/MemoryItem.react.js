@@ -1,15 +1,10 @@
-var React = require('react');
-var ReactPropTypes = React.PropTypes;
+import React from 'react';
 
-var classNames = require('classnames');
+import classNames from 'classnames';
 
-var MemoryItem = React.createClass({
+class MemoryItem extends React.Component {
 
-  propTypes: {
-   memory: ReactPropTypes.object.isRequired
-  },
-
-  render: function() {
+  render() {
     var memory = this.props.memory;
 
     return (
@@ -19,6 +14,6 @@ var MemoryItem = React.createClass({
       </div>
     );
   }
-});
+};
 
-module.exports = MemoryItem;
+export default MemoryItem;

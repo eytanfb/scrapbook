@@ -1,13 +1,12 @@
-var React = require('react');
-var ReactPropTypes = React.PropTypes;
-var MemoryActions = require('../actions/MemoryActions');
+import React from 'react';
+import MemoryActions from '../actions/MemoryActions';
 
-var Footer = React.createClass({
+class Footer extends React.Component {
 
   /**
    * @return {object}
    */
-  render: function() {
+  render() {
     return null;
     var allMemories = this.props.allMemories;
     var total = Object.keys(allMemories).length;
@@ -49,12 +48,12 @@ var Footer = React.createClass({
         {clearCompletedButton}
       </footer>
     );
-  },
+  }
 
-  _onClearCompletedClick: function() {
+  _onClearCompletedClick() {
     MemoryActions.destroyCompleted();
   }
 
-});
+};
 
-module.exports = Footer;
+export default Footer;

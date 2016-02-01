@@ -1,46 +1,47 @@
-var Footer = require('./Footer.react');
-var Header = require('./Header.react');
-var MainSection = require('./MainSection.react');
-var MemoryList = require('./MemoryList.react');
-var React = require('react');
-var MemoryStore = require('../stores/MemoryStore');
-var Api = require('../helpers/api');
+import React from 'react';
+import Footer from './Footer.react';
+import Header from './Header.react';
+import MainSection from './MainSection.react';
+import MemoryList from './MemoryList.react';
+import MemoryStore from '../stores/MemoryStore';
+import Api from '../helpers/api';
 
-var ScrapbookApp = React.createClass({
+class ScrapbookApp extends React.Component {
 
-  getInitialState: function() {
-    return {memoryGroups: []};
-  },
+  constructor() {
+    super();
+    this.state = {
+      memoryGroups: []
+    };
+    this._onChange = this._onChange.bind(this);
+  }
 
-  componentDidMount: function () {
+  componentDidMount() {
     MemoryStore.addChangeListener(this._onChange);
     Api.fetchCategories();
-  },
+  }
 
-  componentWillUnmount: function() {
+  componentWillUnmount() {
     MemoryStore.removeChangeListener(this._onChange);
-  },
+  }
 
   /**
    * @return {object}
    */
-  render: function() {
-    return (
-      <div>
-        <Header />
-        <MainSection
-          memoryGroups={this.state.memoryGroups}
-        />
-        <br />
-        <MemoryList />
-      </div>
+  render() {
+    return ( 
+        <div>
+          <Header />
+          <MainSection memoryGroups={this.state.memoryGroups}/>
+          <br />
+          <MemoryList />
+        </div>
     );
-  },
-
-  _onChange: function() {
-    this.setState({memoryGroups: MemoryStore.getAllMemoryGroups()});
   }
 
-});
+  _onChange() {
+    this.setState({memoryGroups: MemoryStore.getAllMemoryGroups()});
+  }
+};
 
-module.exports = ScrapbookApp;
+export default ScrapbookApp;

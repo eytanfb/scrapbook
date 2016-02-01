@@ -1,23 +1,19 @@
-var React = require('react');
-var ReactPropTypes = React.PropTypes;
-var MemoryActions = require('../actions/MemoryActions');
-var MemoryGroup = require('./MemoryGroup.react');
-var _ = require("underscore");
+import React from 'react';
+import MemoryActions from '../actions/MemoryActions';
+import MemoryGroup from './MemoryGroup.react';
+import _ from "underscore";
 
-var MainSection = React.createClass({
+class MainSection extends React.Component {
 
-  propTypes: {
-    memoryGroups: ReactPropTypes.array.isRequired
-  },
-
-  getInitialState: function () {
-    return { memoryGroups: [] };
-  },
+  constructor() {
+    super();
+    this.state = { memoryGroups: [] };
+  }
 
   /**
    * @return {object}
    */
-  render: function() {
+  render() {
     // This section should be hidden by default
     // and shown when there are memories.
 
@@ -33,6 +29,6 @@ var MainSection = React.createClass({
     );
   }
 
-});
+};
 
-module.exports = MainSection;
+export default MainSection;

@@ -1,6 +1,6 @@
-var keyMirror = require('keymirror');
+import keyMirror from 'keymirror';
 
-module.exports = keyMirror({
+var MemoryConstants = keyMirror({
   ADD_MEMORY: null,
   MEMORY_TOGGLE_COMPLETE_ALL: null,
   MEMORY_UNDO_COMPLETE: null,
@@ -10,3 +10,5 @@ module.exports = keyMirror({
   MEMORY_DESTROY_COMPLETED: null,
   SHOW_CATEGORY: null
 });
+
+export default MemoryConstants;

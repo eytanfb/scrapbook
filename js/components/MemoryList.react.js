@@ -1,48 +1,61 @@
-var React = require('react');
-var ReactPropTypes = React.PropTypes;
-var MemoryItem = require('./MemoryItem.react');
-var MemoryStore = require('../stores/MemoryStore');
+import React from 'react';
+import MemoryItem from './MemoryItem.react';
+import MemoryStore from '../stores/MemoryStore';
 
-var MemoryList = React.createClass({
+class MemoryList extends React.Component {
 
-  getInitialState: function() {
-    return { memories: [], category: "" };
-  },
+  constructor() {
+    super();
+    this.state = {
+      memories: [],
+      category: ""
+    };
+    this._onChange = this._onChange.bind(this);
+  }
 
-  componentDidMount: function () {
+  componentDidMount() {
     MemoryStore.addChangeListener(this._onChange);
-  },
+  }
 
-  componentWillUnmount: function () {
+  componentWillUnmount() {
     MemoryStore.removeChangeListener(this._onChange);
-  },
+  }
 
-  render: function() {
+  render() {
     var memories = this.state.memories;
     var category = this.state.category;
     var memoryItems = [];
 
     if (memories) {
-      memoryItems = Object.keys(memories).map(function (key) {
-        var memory = memories[key];
-        return <MemoryItem key={key} memory={memory} />
+      memoryItems = Object.keys(memories).map(function(key) {
+          var memory = memories[key];
+          return <MemoryItem key = {
+            key
+          }
+          memory = {
+            memory
+          }
+          />
       });
     }
 
     return (
       <div>
-        <h4>{category}</h4>
-        {memoryItems}
-      </div>
+        <h4>{category}</h4 > {
+            memoryItems
+          } < /div>
     );
-  },
+  }
 
-  _onChange: function () {
+  _onChange() {
     var memoriesByCategory = MemoryStore.getMemoriesByCategory();
     var category = memoriesByCategory.category;
     var memories = memoriesByCategory.memories;
-    this.setState({category: category, memories: memories});
+    this.setState({
+      category: category, 
+      memories: memories
+    });
   }
-});
+};
 
-module.exports = MemoryList;
+export default MemoryList;

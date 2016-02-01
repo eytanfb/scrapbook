@@ -1,13 +1,13 @@
-var React = require('react');
-var MemoryActions = require('../actions/MemoryActions');
-var MemoryTextInput = require('./MemoryTextInput.react');
+import React from 'react';
+import MemoryActions from '../actions/MemoryActions';
+import MemoryTextInput from './MemoryTextInput.react';
 
-var Header = React.createClass({
+class Header extends React.Component {
 
   /**
    * @return {object}
    */
-  render: function() {
+  render() {
     return (
       <header>
         <div id="header">
@@ -19,7 +19,7 @@ var Header = React.createClass({
         </div>
       </header>
     );
-  },
+  }
 
   /**
    * Event handler called within MemoryTextInput.
@@ -27,11 +27,11 @@ var Header = React.createClass({
    * in different ways.
    * @param {string} text
    */
-  _onSave: function(text) {
+  _onSave(text) {
     if (text.trim()){
       MemoryActions.create(text);
     }
   }
-});
+};
 
-module.exports = Header;
+export default Header;

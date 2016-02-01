@@ -1,9 +1,9 @@
-var AppDispatcher = require('../dispatcher/AppDispatcher');
-var EventEmitter = require('events').EventEmitter;
-var MemoryConstants = require('../constants/MemoryConstants');
-var Categorizer = require('../helpers/categorizer');
-var assign = require('object-assign');
-var Api = require('../helpers/api');
+import AppDispatcher from '../dispatcher/AppDispatcher';
+import EventEmitter from 'events';
+import MemoryConstants from '../constants/MemoryConstants';
+import Categorizer from '../helpers/categorizer';
+import Api from '../helpers/api';
+import assign from 'object-assign';
 
 var CHANGE_EVENT = 'change';
 
@@ -87,17 +87,11 @@ function destroyCompleted() {
 };
 
 var MemoryStore = assign({}, EventEmitter.prototype, {
-
-  mixins: [ReactFireMixin],
-  /**
-   * Get the entire collection of MEMORYs.
-   * @return {object}
-   */
-  getAllMemoryGroups: function() {
+  getAllMemoryGroups() {
     return _memoryGroups;
   },
 
-  getMemoriesByCategory: function () {
+  getMemoriesByCategory() {
     return _memoriesByCategory;
   },
 
@@ -105,16 +99,10 @@ var MemoryStore = assign({}, EventEmitter.prototype, {
     this.emit(CHANGE_EVENT);
   },
 
-  /**
-   * @param {function} callback
-   */
   addChangeListener: function(callback) {
     this.on(CHANGE_EVENT, callback);
   },
 
-  /**
-   * @param {function} callback
-   */
   removeChangeListener: function(callback) {
     this.removeListener(CHANGE_EVENT, callback);
   }
@@ -196,4 +184,4 @@ AppDispatcher.register(function(action) {
   }
 });
 
-module.exports = MemoryStore;
+export default MemoryStore;

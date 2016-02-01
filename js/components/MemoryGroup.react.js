@@ -1,39 +1,30 @@
-var React = require('react');
-var ReactPropTypes = React.PropTypes;
-var MemoryActions = require('../actions/MemoryActions');
-var classNames = require('classnames');
-var Api = require('../helpers/Api');
+import React from 'react';
+import MemoryActions from '../actions/MemoryActions';
+import classNames from 'classnames';
+import Api from '../helpers/Api';
 
-var MemoryGroup = React.createClass({
+class MemoryGroup extends React.Component {
 
-  propTypes: {
-   name: ReactPropTypes.string.isRequired,
-   src: ReactPropTypes.string.isRequired
-  },
-
-  getInitialState: function() {
-    return null;
-  },
-
-  showCategory: function () {
+  showCategory() {
     var category = this.props.name;
     Api.fetchCategory(category);
-  },
+  }
 
   /**
    * @return {object}
    */
-  render: function() {
+  render() {
     var src = this.props.src;
+    var href = '/category/' + this.props.name;
 
     return (
       <div className='memory-group polaroid-image'>
-        <a href='#' onClick={this.showCategory} title={this.props.name}>
+        <a href={href} onClick={this.showCategory} title={this.props.name}>
           <img src={src} />
         </a>
       </div>
     );
   }
-});
+};
 
-module.exports = MemoryGroup;
+export default MemoryGroup;
