@@ -2,29 +2,36 @@ import React from 'react';
 import MemoryActions from '../actions/MemoryActions';
 import classNames from 'classnames';
 import Api from '../helpers/Api';
+import Link from 'react-router';
 
 class MemoryGroup extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.showCategory = this.showCategory.bind(this);
+  }
+
   showCategory() {
-    var category = this.props.name;
-    Api.fetchCategory(category);
+    const { name } = this.props;
+    Api.fetchCategory(name);
   }
 
   /**
    * @return {object}
    */
   render() {
-    var src = this.props.src;
-    var href = '/category/' + this.props.name;
+    const {src} = this.props;
 
     return (
       <div className='memory-group polaroid-image'>
-        <a href={href} onClick={this.showCategory} title={this.props.name}>
+        <a onClick={this.showCategory} >
           <img src={src} />
         </a>
       </div>
     );
   }
 };
+
+MemoryGroup.props = {name: '', src: ''};
 
 export default MemoryGroup;

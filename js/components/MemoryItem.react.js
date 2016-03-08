@@ -4,12 +4,16 @@ import classNames from 'classnames';
 
 class MemoryItem extends React.Component {
 
+  constructor(props) {
+    super(props);
+  }
+  
   render() {
-    var memory = this.props.memory;
+    const { text } = this.props;
 
     return (
       <div>
-        <a href='#'>{memory.text}</a>
+        <a href='#'>{text}</a>
         <br />
       </div>
     );

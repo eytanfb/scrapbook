@@ -1,5 +1,5 @@
 import AppDispatcher from '../dispatcher/AppDispatcher';
-import * as MemoryConstants from '../constants/MemoryConstants';
+import MemoryConstants from '../constants/MemoryConstants';
 
 class MemoryActions {
 

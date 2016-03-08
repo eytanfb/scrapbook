@@ -3,12 +3,11 @@ import MemoryActions from "../actions/MemoryActions";
 const baseRefUrl = 'https://scrapbook.firebaseio.com/';
 const categoriesRef = new Firebase(baseRefUrl + "categories/");
 const memoriesRef = new Firebase(baseRefUrl + "memories/");
+let newMemoryRef = (id) => {
+  return new Firebase(baseRefUrl + "memories/" + id);
+}
 
 class Api {
-
-  static newMemoryRef(id) {
-    return new Firebase(baseRefUrl + "memories/" + id);
-  }
 
   static fetchCategories() {
     categoriesRef.once('value', function (snapshot) {
@@ -18,13 +17,23 @@ class Api {
 
   static fetchCategory(category) {
     memoriesRef.orderByChild("category").equalTo(category).on("value", function(snapshot) {
-      MemoryActions.showCategory(category, snapshot.val());
+      const value = arrayify(snapshot.val());
+      MemoryActions.showCategory(category, value);
     });
   }
 
   static addMemory(memory) {
-    newMemoryRef(memory.id).set(memory);
+    const { id } = memory;
+    newMemoryRef(id).set(memory);
   }
+
 };
+
+let arrayify = (obj) =>  {
+  if(obj) {
+    return Object.keys(obj).map((k) => obj[k]);
+  }
+  return [];
+}
 
 export default Api;

@@ -8,7 +8,8 @@ var MemoryConstants = keyMirror({
   MEMORY_UPDATE_TEXT: null,
   MEMORY_DESTROY: null,
   MEMORY_DESTROY_COMPLETED: null,
-  SHOW_CATEGORY: null
+  SHOW_CATEGORY: null,
+  FETCH_ALL: null
 });
 
 export default MemoryConstants;

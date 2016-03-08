@@ -7,9 +7,10 @@ class MemoryTextInput extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      value: props.value || ''
-    };
+    this._save = this._save.bind(this);
+    this._onChange = this._onChange.bind(this);
+    this._onKeyDown = this._onKeyDown.bind(this);
+    this.state = { value: "" };
   }
 
   /**
@@ -18,9 +19,8 @@ class MemoryTextInput extends React.Component {
   render() /*object*/ {
     return (
       <input
-        className={this.props.className}
         id={'new-memory'}
-        placeholder={this.props.placeholder}
+        placeholder="What did you do?"
         onBlur={this._save}
         onChange={this._onChange}
         onKeyDown={this._onKeyDown}
@@ -61,7 +61,7 @@ class MemoryTextInput extends React.Component {
 };
 
 MemoryTextInput.defaultProps = {
-  value: ''
+  onSave: () => {},
 };
 
 export default MemoryTextInput;

@@ -11,14 +11,19 @@ class ScrapbookApp extends React.Component {
   constructor() {
     super();
     this.state = {
-      memoryGroups: []
+      props: {}
     };
     this._onChange = this._onChange.bind(this);
   }
 
   componentDidMount() {
     MemoryStore.addChangeListener(this._onChange);
-    Api.fetchCategories();
+    if (localStorage.getItem("_memoryGroups") == undefined) {
+      Api.fetchCategories();
+    } else {
+      const initialState = MemoryStore.getInitialState();
+      this.setState(initialState);
+    }
   }
 
   componentWillUnmount() {
@@ -32,7 +37,7 @@ class ScrapbookApp extends React.Component {
     return ( 
         <div>
           <Header />
-          <MainSection memoryGroups={this.state.memoryGroups}/>
+          <MainSection props={this.state.props}/>
           <br />
           <MemoryList />
         </div>
@@ -40,7 +45,8 @@ class ScrapbookApp extends React.Component {
   }
 
   _onChange() {
-    this.setState({memoryGroups: MemoryStore.getAllMemoryGroups()});
+    const currentState = MemoryStore.getCurrentState();
+    this.setState(currentState);
   }
 };
 

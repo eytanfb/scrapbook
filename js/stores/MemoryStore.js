@@ -5,21 +5,24 @@ import Categorizer from '../helpers/categorizer';
 import Api from '../helpers/api';
 import assign from 'object-assign';
 
-var CHANGE_EVENT = 'change';
+let CHANGE_EVENT = 'change';
 
-var _memories = {};
-var _memoryGroups = [];
-var _memoriesByCategory = { memories: [], category: "" };
+let _memories = {};
+let _memoryGroups = [];
+let _memoriesByCategory = { memories: [], category: "" };
 
 function storeMemoryGroups(groups) {
   groups.forEach(function (group, index) {
     _memoryGroups.push(group);
   });
+  localStorage.setItem("_memoryGroups", JSON.stringify(_memoryGroups));
 }
 
 function categoryMemories(category, memories) {
-  _memoriesByCategory = {};
-  _memoriesByCategory = {category: category, memories: memories};
+  _memoriesByCategory = {
+    category: category, 
+    memories: memories
+  };
 }
 
 /**
@@ -27,9 +30,6 @@ function categoryMemories(category, memories) {
  * @param  {string} text The content of the MEMORY
  */
 function create(text) {
-  // Hand waving here -- not showing how this interacts with XHR or persistent
-  // server-side storage.
-  // Using the current timestamp + random number in place of a real id.
   var id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
   var memory = {
     id: id,
@@ -93,6 +93,30 @@ var MemoryStore = assign({}, EventEmitter.prototype, {
 
   getMemoriesByCategory() {
     return _memoriesByCategory;
+  },
+
+  getInitialState() {
+    if(localStorage.getItem("_memoryGroups")){
+      _memoryGroups = JSON.parse(localStorage.getItem("_memoryGroups"));
+    }
+    return {
+      props: {
+        memoryGroups: _memoryGroups,
+        category: "",
+        memories: []
+      }
+    };
+  },
+
+  getCurrentState() {
+    const { category, memories } = _memoriesByCategory;
+    return {
+      props: {
+        memoryGroups: _memoryGroups,
+        category: category,
+        memories: memories 
+      }
+    };
   },
 
   emitChange: function() {

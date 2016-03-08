@@ -13,7 +13,6 @@ class Header extends React.Component {
         <div id="header">
           <MemoryTextInput
             id="new-memory"
-            placeholder="What did you do?"
             onSave={this._onSave}
           />
         </div>
