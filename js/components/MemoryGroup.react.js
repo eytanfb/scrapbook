@@ -20,7 +20,7 @@ class MemoryGroup extends React.Component {
    * @return {object}
    */
   render() {
-    const {src} = this.props;
+    const { src } = this.props;
 
     return (
       <div className='memory-group polaroid-image'>

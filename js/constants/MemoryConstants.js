@@ -9,6 +9,7 @@ var MemoryConstants = keyMirror({
   MEMORY_DESTROY: null,
   MEMORY_DESTROY_COMPLETED: null,
   SHOW_CATEGORY: null,
+  SHOW_MEMORY: null,
   FETCH_ALL: null
 });
 

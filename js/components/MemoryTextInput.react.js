@@ -46,7 +46,7 @@ class MemoryTextInput extends React.Component {
    */
   _onChange(event) {
     this.setState({
-      value: event.target.value
+      value: event.target.value.toLowerCase()
     });
   }
 

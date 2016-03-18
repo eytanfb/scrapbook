@@ -2,12 +2,14 @@ import AppDispatcher from '../dispatcher/AppDispatcher';
 import EventEmitter from 'events';
 import MemoryConstants from '../constants/MemoryConstants';
 import Categorizer from '../helpers/categorizer';
+import Namifier from '../helpers/namifier';
 import Api from '../helpers/api';
 import assign from 'object-assign';
 
 let CHANGE_EVENT = 'change';
 
 let _memories = {};
+let _currentMemory = {};
 let _memoryGroups = [];
 let _memoriesByCategory = { memories: [], category: "" };
 
@@ -23,6 +25,10 @@ function categoryMemories(category, memories) {
     category: category, 
     memories: memories
   };
+}
+
+function changeCurrentMemory(id) {
+
 }
 
 /**
@@ -41,8 +47,11 @@ function create(text) {
 }
 
 function processMemory(memory) {
-  var text = memory.text;
-  memory["category"] = Categorizer.categorize(text);
+  const { text }  = memory;
+  const category = Categorizer.categorize(text);
+  memory["category"] = category;
+  const name = Namifier.namify(text, category);
+  memory["name"] = name;
   return memory;
 };
 
@@ -200,6 +209,11 @@ AppDispatcher.register(function(action) {
 
     case MemoryConstants.SHOW_CATEGORY:
       categoryMemories(action.category, action.memories);
+      MemoryStore.emitChange();
+      break;
+
+    case MemoryConstants.SHOW_MEMORY:
+      changeCurrentMemory(action.id);
       MemoryStore.emitChange();
       break;
 

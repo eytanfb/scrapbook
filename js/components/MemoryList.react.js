@@ -1,5 +1,5 @@
 import React from 'react';
-import MemoryItem from './MemoryItem.react';
+import MemoryListItem from './MemoryListItem.react';
 import MemoryStore from '../stores/MemoryStore';
 
 class MemoryList extends React.Component {
@@ -10,19 +10,19 @@ class MemoryList extends React.Component {
 
   render() {
     const { memories, category } = this.props;
-    let memoryItems = [];
+    let memoryListItems = [];
 
     if (memories) {
-      memoryItems = memories.map(function(memory) {
+      memoryListItems = memories.map(function(memory) {
           const { text, id } = memory;
-          return <MemoryItem key={id} text={memory.text}/>
+          return <MemoryListItem key={id} id={id} text={memory.text}/>
       });
     }
 
     return (
       <div>
         <h2>{category}</h2> 
-        {memoryItems} 
+        {memoryListItems} 
       </div>
     );
   }

@@ -1,7 +1,7 @@
 import React from 'react';
 import MemoryActions from '../actions/MemoryActions';
 import MemoryGroup from './MemoryGroup.react';
-import MemoryList from './MemoryList.react';
+import MemoryDisplay from './MemoryDisplay.react';
 import _ from "underscore";
 
 class MainSection extends React.Component {
@@ -15,7 +15,6 @@ class MainSection extends React.Component {
    */
   render() {
     const props = this.props.props;
-    console.log("props", props);
 
     let display = <h3>Loading...</h3>;
     if (props.memoryGroups) {
@@ -27,7 +26,7 @@ class MainSection extends React.Component {
 
     if (props.category && props.category.length > 0  && props.memories && props.memories.length > 0) {
       const { category, memories } = props;
-      display = <MemoryList category={category} memories={memories} />
+      display = <MemoryDisplay category={category} memories={memories} />
     } 
 
     return (

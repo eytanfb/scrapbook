@@ -83,6 +83,13 @@ class MemoryActions {
       memories: memories
     });
   }
+
+  static showMemory(id) {
+    AppDispatcher.dispatch({
+      actionType: MemoryConstants.SHOW_MEMORY,
+      id: id
+    });
+  }
 };
 
 export default MemoryActions;
